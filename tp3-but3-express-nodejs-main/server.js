@@ -1,22 +1,18 @@
 import mongoose from 'mongoose';
-import { app } from './app.js'
-//configure l'environnement
-//dotenv.config();
-//console.log(process.env.DATABASE)
-//const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.PASSWORD)
+import dotenv from 'dotenv';
+import { app } from './app.js';
 
-//const LOCAL_DATABASE = url here;
+dotenv.config();
+
 async function connectDB() {
-    await mongoose.connect(LOCAL_DATABASE)
+    await mongoose.connect(process.env.MONGO_URI)
 }
 connectDB().catch((err) => {
     console.log("Connexion à MongoDB a échoué", err)
 })
 
-
-
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`App running on port ${port}`)
-})
+    console.log(`App running on port ${port}`);
+});
